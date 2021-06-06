@@ -24,12 +24,12 @@ public class CourseStudent {
     private float grade;
 
     @ManyToOne//(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value = "student-coursestudent")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudentEntity studentEntity;
 
     @ManyToOne//(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value = "course-coursestudent")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CourseEntity courseEntity;
 }

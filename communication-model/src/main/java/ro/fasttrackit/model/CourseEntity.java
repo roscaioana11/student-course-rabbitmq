@@ -27,7 +27,7 @@ public class CourseEntity {
     private String description;
 
     @OneToMany(mappedBy = "courseEntity", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "course-coursestudent")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<CourseStudent> courseStudent;
 }
