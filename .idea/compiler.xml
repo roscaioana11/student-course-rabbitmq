@@ -9,9 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="course-service" />
         <module name="student-service" />
+        <module name="communication-model" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="communication-model" target="15" />
       <module name="course-service" target="15" />
       <module name="student-course-rabbitmq" target="15" />
       <module name="student-service" target="15" />
