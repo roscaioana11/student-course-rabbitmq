@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import ro.fasttrackit.model.StudentEntity;
 import ro.fasttrackit.studentservice.exception.ResourceNotFoundException;
 import ro.fasttrackit.studentservice.model.StudentFilter;
+import ro.fasttrackit.studentservice.repository.CourseStudentRepository;
 import ro.fasttrackit.studentservice.repository.StudentDao;
 import ro.fasttrackit.studentservice.repository.StudentRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ import java.util.List;
 public class StudentService {
     private final RabbitTemplate rabbitTemplate;
     private final StudentRepository studentRepository;
+    private final CourseStudentRepository courseStudentRepository;
     private final StudentValidator validator;
     private final StudentDao dao;
     private final FanoutExchange fanoutExchange;
@@ -35,9 +38,11 @@ public class StudentService {
         return studentRepository.save(studentEntity);
     }
 
+    @Transactional
     public void deleteStudent(Long studentId){
-        fanout(studentId);
+        courseStudentRepository.deleteAllByStudentEntityId(studentId);
         studentRepository.deleteById(studentId);
+        fanout(studentId);
     }
 
     private void fanout(Long studentId) {

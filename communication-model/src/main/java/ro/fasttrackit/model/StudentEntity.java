@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "student")
 @Data
@@ -26,8 +25,4 @@ public class StudentEntity {
     @Column
     private Integer age;
 
-    @OneToMany(mappedBy = "studentEntity", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JsonManagedReference(value = "student-coursestudent")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<CourseStudent> courseStudent;
 }
